@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/internetRobot/internetRobot.iml" filepath="$PROJECT_DIR$/internetRobot/internetRobot.iml" />
+      <module fileurl="file://$PROJECT_DIR$/javahttp/javahttp.iml" filepath="$PROJECT_DIR$/javahttp/javahttp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/test1/test1.iml" filepath="$PROJECT_DIR$/test1/test1.iml" />
+    </modules>
+  </component>
+</project>
