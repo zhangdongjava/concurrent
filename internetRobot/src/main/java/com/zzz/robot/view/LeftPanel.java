@@ -2,7 +2,7 @@ package com.zzz.robot.view;
 
 
 import com.zzz.robot.util.ParseUtil;
-import com.zzz.robot.util.ZjgetUtil;
+import com.zzz.robot.util.impl.ZjgetUtil;
 import org.jsoup.nodes.Element;
 
 import javax.swing.*;
