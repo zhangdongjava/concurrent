@@ -24,6 +24,7 @@ public class TopPanel extends BasePanel {
         comboBox=new JComboBox();
         set = mainPanel.map.keySet();
         for (String s : set) {
+            if(currText==null)currText=s;
             comboBox.addItem(s);
         }
         comboBox.setBounds(30,30,80,30);
@@ -34,6 +35,7 @@ public class TopPanel extends BasePanel {
                 currText = text;
             }
         });
+        mainPanel.loadZj(currText);
         this.add(comboBox);
         mainPanel.repaint();
     }

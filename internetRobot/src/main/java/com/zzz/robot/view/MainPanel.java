@@ -33,9 +33,9 @@ public class MainPanel extends JFrame {
     }
 
     public void addPanel(){
-        top = new TopPanel(0,0,300,100,this);
-        left = new LeftPanel(0,100,300,500,this);
         right = new RightPanel(300,0,500,600,this);
+        left = new LeftPanel(0,100,300,500,this);
+        top = new TopPanel(0,0,300,100,this);
         this.add(top);
         this.add(left);
         this.add(right);
