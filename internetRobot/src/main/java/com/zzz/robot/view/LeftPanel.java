@@ -18,6 +18,7 @@ import java.util.Vector;
 public class LeftPanel extends BasePanel {
 
     private JList jList;
+    private  JScrollPane jScrollPane;
 
     private java.util.List<Element> as;
 
@@ -29,17 +30,21 @@ public class LeftPanel extends BasePanel {
 
         zjgetUtil.LINE_LENGTH = 29;
         this.setBackground(Color.gray);
-        initList();
     }
 
-    public void initList(){
-        Vector<String> zjs =  getZj("http://www.biquge66.com/10_10292");
-        jList = new JList(zjs);
-        jList.addMouseListener(new ListClick());
-        jList.setBackground(this.getBackground());
-        jList.setBounds(0,0,300,450);
-        JScrollPane jScrollPane =  new JScrollPane(jList);
-        jScrollPane.setBounds(0,0,300,451);
+    public void initList(String url){
+        Vector<String> zjs =  getZj(url);
+        if(jList!=null){
+            jList.removeAll();
+            jList.setListData(zjs);
+        }else{
+            jList = new JList(zjs);
+            jList.addMouseListener(new ListClick());
+            jList.setBackground(this.getBackground());
+            jList.setBounds(0,0,300,450);
+            jScrollPane =  new JScrollPane(jList);
+            jScrollPane.setBounds(0,0,300,451);
+        }
         this.add(jScrollPane);
         this.repaint();
     }

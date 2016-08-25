@@ -28,7 +28,7 @@ public class MainPanel extends JFrame {
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setBackground(Color.GRAY);
-        this.setVisible(true);
+        //this.setVisible(true);
         addPanel();
     }
 
@@ -48,5 +48,9 @@ public class MainPanel extends JFrame {
 
     public static void main(String[] args) {
         new MainPanel().setVisible(true);
+    }
+
+    public void loadZj(String currText) {
+        left.initList(map.get(currText));
     }
 }
