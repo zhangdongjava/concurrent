@@ -1,5 +1,6 @@
 package com.zzz.robot.util;
 
+import com.zzz.robot.util.impl.BaseParse;
 import com.zzz.robot.util.sup.ZjParse;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -15,7 +16,7 @@ import java.util.stream.Collectors;
 /**
  * Created by dell_2 on 2016/8/23.
  */
-public class DocumentUtil implements ZjParse {
+public class DocumentUtil extends BaseParse {
 
     private String url;
 
@@ -78,6 +79,7 @@ public class DocumentUtil implements ZjParse {
         this.url = url;
         baseUrl = url.substring(0,url.lastIndexOf("/")+1);
         this.connect();
+        listDistinct(list);
         return list;
     }
 }
