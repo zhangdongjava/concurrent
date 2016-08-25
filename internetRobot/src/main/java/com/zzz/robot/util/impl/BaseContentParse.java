@@ -18,10 +18,6 @@ import java.util.concurrent.ConcurrentHashMap;
 public abstract class BaseContentParse implements ContentParse {
     public  int  LINE_LENGTH = 29;
     private static int  TIME_OUT = 10000;
-
-    private String contentClass;
-    private String contentId;
-
     private static Map<String,String> map = new ConcurrentHashMap<>();
 
     public  String  getContent(String url) throws Exception {
@@ -89,13 +85,4 @@ public abstract class BaseContentParse implements ContentParse {
         return b.toString();
     }
 
-
-
-    public void setContentId(String contentId) {
-        this.contentId = contentId;
-    }
-
-    public void setContentClass(String contentClass) {
-        this.contentClass = contentClass;
-    }
 }
