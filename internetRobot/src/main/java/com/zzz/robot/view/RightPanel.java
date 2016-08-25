@@ -20,6 +20,7 @@ public class RightPanel extends BasePanel {
 
     public void initTextArea(){
         jTextArea = new JTextArea();
+        jTextArea.setBackground(Color.gray);
         jTextArea.setFont(new Font("宋体",Font.TRUETYPE_FONT,16));
         jTextArea.setBounds(0,0,488,580);
         jScrollPane =  new JScrollPane(jTextArea);

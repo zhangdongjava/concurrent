@@ -1,7 +1,7 @@
 package com.zzz.robot.view;
 
 
-import com.zzz.robot.util.DocumentUtil;
+import com.zzz.robot.util.ParseUtil;
 import com.zzz.robot.util.ZjgetUtil;
 import org.jsoup.nodes.Element;
 
@@ -9,7 +9,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.*;
+import java.util.Collections;
+import java.util.Vector;
 
 /**
  * Created by dell_2 on 2016/8/25.
@@ -20,7 +21,6 @@ public class LeftPanel extends BasePanel {
 
     private java.util.List<Element> as;
 
-    private  DocumentUtil util;
 
     private  ZjgetUtil zjgetUtil = new ZjgetUtil();
 
@@ -33,7 +33,7 @@ public class LeftPanel extends BasePanel {
     }
 
     public void initList(){
-        Vector<String> zjs =  getZj("http://www.bxwx.cc/60/60915/index.html");
+        Vector<String> zjs =  getZj("http://www.biquge66.com/10_10292");
         jList = new JList(zjs);
         jList.addMouseListener(new ListClick());
         jList.setBackground(this.getBackground());
@@ -41,19 +41,14 @@ public class LeftPanel extends BasePanel {
         JScrollPane jScrollPane =  new JScrollPane(jList);
         jScrollPane.setBounds(0,0,300,451);
         this.add(jScrollPane);
+        this.repaint();
     }
 
     public Vector<String> getZj(String url){
-        if(util==null){
-            util = new DocumentUtil(url);
-        }else{
-            util.setUrl(url);
-        }
+        as = ParseUtil.getZjList(url);
         Vector<String> zjs =new Vector<>();
-        util.connect();
-        Collections.reverse(util.getAs());
-        as = util.getAs();
-        util.getAs().stream()
+        Collections.reverse(as);
+        as.stream()
                 .forEach((e)->zjs.add(e.text()));
         return zjs;
     }
@@ -67,8 +62,9 @@ public class LeftPanel extends BasePanel {
 
     private void getZj(Element e){
         String content;
+        String url = e.attr("href");
         try {
-            content =  zjgetUtil.get(e.attr("href"));
+            content =  ParseUtil.getContent(url);
         } catch (Exception e1) {
             content = e.toString();
         }

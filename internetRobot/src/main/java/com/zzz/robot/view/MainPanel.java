@@ -1,6 +1,9 @@
 package com.zzz.robot.view;
 
 import javax.swing.*;
+import java.awt.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by dell_2 on 2016/8/25.
@@ -10,6 +13,13 @@ public class MainPanel extends JFrame {
     private LeftPanel left;
     private RightPanel right;
     private TopPanel top;
+    public static Map<String,String> map = new HashMap<>();
+    public static Map<String,String> zjParse = new HashMap<>();
+    public static Map<String,String> contentParse = new HashMap<>();
+    static {
+        map.put("大主宰","http://www.bxwx.cc/60/60915/index.html");
+        map.put("逆鳞","http://www.biquge66.com/10_10292");
+    }
 
     public MainPanel(){
         this.setTitle("小说阅读器");
@@ -17,6 +27,8 @@ public class MainPanel extends JFrame {
         this.setSize(800,600);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.setBackground(Color.GRAY);
+        this.setVisible(true);
         addPanel();
     }
 

@@ -1,5 +1,6 @@
 package com.zzz.robot.util;
 
+import com.zzz.robot.util.sup.ZjParse;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -14,7 +15,7 @@ import java.util.stream.Collectors;
 /**
  * Created by dell_2 on 2016/8/23.
  */
-public class DocumentUtil {
+public class DocumentUtil implements ZjParse {
 
     private String url;
 
@@ -31,17 +32,13 @@ public class DocumentUtil {
 
     public static Request request = new Request();
 
-    public DocumentUtil(String url) {
-        this.url = url;
-        baseUrl = url.substring(0,url.lastIndexOf("/")+1);
-    }
+
 
     public void setUrl(String url) {
         this.url = url;
     }
 
     public void connect() {
-        String content = request.get(url, null);
         try {
             doc = Jsoup.parse(new URL(url),2000);
             bulida();
@@ -74,6 +71,14 @@ public class DocumentUtil {
 
     public void saveAll(SaveFile saveFile){
         list.subList(1,2).parallelStream().forEach((e)->saveFile.saveFile(e));
+    }
+
+    @Override
+    public List<Element> getZjList(String url) {
+        this.url = url;
+        baseUrl = url.substring(0,url.lastIndexOf("/")+1);
+        this.connect();
+        return list;
     }
 }
 
