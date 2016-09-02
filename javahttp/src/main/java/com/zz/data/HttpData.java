@@ -14,6 +14,9 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -72,7 +75,6 @@ public class HttpData {
 
     public String getBaiduToken() {
         if(token!=null)return token;
-        getBaiduCookie();
         String str = "http://passport.baidu.com/v2/api/?getapi&class=login&tpl=pp&tangram=false";
         HttpGet httpget = new HttpGet(str);
         HttpResponse response = null;
@@ -96,14 +98,17 @@ public class HttpData {
         return null;
     }
 
-    public CookieStore getBaiduCookie() {
-        HttpGet httpGet = new HttpGet("http://tieba.baidu.com/f?kw=java&ie=utf-8&tab=good&cid=&pn=50");
+    public void getBaiduCookieAndGid() {
+        HttpGet httpGet = new HttpGet("https://passport.baidu.com/v2/?login");
         try {
             HttpResponse res = client.execute(httpGet);
+            String content = EntityUtils.toString(res.getEntity());
+            System.out.println(content);
+            Element element = Jsoup.parse(content).getElementById("TANGRAM__PSP_3__smsHiddenFields_gid");
+            System.out.println(element.html());
         } catch (IOException e) {
             System.out.println("获取cookie错误" + e.toString());
         }
-        return null;
     }
 
 
@@ -112,19 +117,22 @@ public class HttpData {
         List<NameValuePair> params = new ArrayList<>();
         long tt = Calendar.getInstance().getTime().getTime();
         try {
+
             params.add(new BasicNameValuePair("charset","utf-8"));
             params.add(new BasicNameValuePair("tpl","mn"));
             params.add(new BasicNameValuePair("apiver","v3"));
             params.add(new BasicNameValuePair("tt",String.valueOf(tt)));
             params.add(new BasicNameValuePair("safeflg","0"));
             params.add(new BasicNameValuePair("isPhone","false"));
+            params.add(new BasicNameValuePair("splogin","rate"));
+            params.add(new BasicNameValuePair("u","http://tieba.baidu.com/"));
+            params.add(new BasicNameValuePair("loginmerge","true"));
             params.add(new BasicNameValuePair("quick_user","0"));
             params.add(new BasicNameValuePair("logintype","dialogLogin"));
-            params.add(new BasicNameValuePair("rsakey","Jp8dttpWj6TiheTyqFQnoRN0txjNlBuP"));
             params.add(new BasicNameValuePair("token",this.getBaiduToken()));
             params.add(new BasicNameValuePair("username","18423418323"));
             params.add(new BasicNameValuePair("password","bdy315441573"));
-            params.add(new BasicNameValuePair("mem_pass","on"));
+            params.add(new BasicNameValuePair("ppui_logintime","9954"));
             params.add(new BasicNameValuePair("logLoginType","pc_loginDialog"));
             params.add(new BasicNameValuePair("verifycode",""));
             params.add(new BasicNameValuePair("callback","parent.bd_pcbs_axjnsn"));
@@ -136,14 +144,8 @@ public class HttpData {
     }
 
     public static void main(String[] args) {
-        System.out.println(Calendar.getInstance().getTime().getTime());
-        HttpData httpData =  new HttpData();
-        httpData.loginBaidu();
-        String content = httpData.byGet("http://localhost/fish/login/userLogin");
-        System.out.println(content);
-       if(content.contains("马上登录")){
-           System.out.println("登录失败！");
-       }
+
+    httpData.getBaiduCookieAndGid();
     }
 
 }
