@@ -1,38 +1,35 @@
-package synchronizedTest;
+package ReentrantLock;
 
-import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 生产着
- * Created by dell_2 on 2016/9/2.
+ * Created by dell_2 on 2016/9/3.
  */
-public class Producer implements Runnable {
-
-
+public class Consumer implements Runnable {
     @Override
-    public  void run() {
-        while (true){
+    public void run() {
+
+        while (true) {
             try {
                 TimeUnit.MILLISECONDS.sleep((long) ((500)*Math.random()));
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            while (Test.count>=Test.MAX_NUM){
-                System.out.println("货物满了开始等待 !");
-                synchronized (Test.lock){
+            while (Test.count == 0) {
+                System.out.println("货物没了等待生产货物 !");
+                synchronized (Test.lock) {
                     await();
                 }
             }
-            System.out.println("开始生产货物!");
+            System.out.println("开始消费货物!");
             synchronized (Test.lock){
-                Test.count ++;
+                Test.count --;
                 Test.lock.notifyAll();
             }
         }
     }
 
-    public void await(){
+    public void await() {
         try {
             Test.lock.wait();
         } catch (InterruptedException e) {

@@ -1,14 +1,15 @@
-package synchronizedTest;
+package ReentrantLock;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Created by dell_2 on 2016/9/2.
  */
 public class Test {
 
-    public static final  Object lock = new Object();
+    public static final ReentrantLock lock = new ReentrantLock();
 
     /**
      * 最大货物数量

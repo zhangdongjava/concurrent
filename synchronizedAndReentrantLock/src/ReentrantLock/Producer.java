@@ -1,6 +1,5 @@
-package synchronizedTest;
+package ReentrantLock;
 
-import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -18,7 +17,7 @@ public class Producer implements Runnable {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            while (Test.count>=Test.MAX_NUM){
+            while (Test.count>= Test.MAX_NUM){
                 System.out.println("货物满了开始等待 !");
                 synchronized (Test.lock){
                     await();
