@@ -2,8 +2,12 @@ package com.zzz.robot.view;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 /**
  * Created by dell_2 on 2016/8/25.
@@ -16,9 +20,14 @@ public class MainPanel extends JFrame {
     public static Map<String,String> map = new HashMap<>();
     public static Map<String,String> zjParse = new HashMap<>();
     public static Map<String,String> contentParse = new HashMap<>();
+    public static Properties properties = new Properties();
     static {
-        map.put("大主宰","http://www.bxwx.cc/60/60915/index.html");
-        map.put("逆鳞","http://www.biquge66.com/10_10292");
+        try {
+            properties.load(new FileInputStream("xs.data"));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public MainPanel(){
@@ -44,13 +53,59 @@ public class MainPanel extends JFrame {
     public void showContent(String content){
         right.showContent(content);
     }
+    public void appendContent(String content){
+        right.appendContent(content);
+    }
+    public void insertContent(String content){
+        right.insertContent(content);
+    }
 
 
     public static void main(String[] args) {
+        try {
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");//Nimbus风格，jdk6
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }
         new MainPanel().setVisible(true);
     }
 
     public void loadZj(String currText) {
-        left.initList(map.get(currText));
+        left.initList(properties.get(currText).toString());
+    }
+
+    public void addXs(String name,String val){
+        properties.put(name,val);
+        saveXs();
+    }
+
+    public void saveXs(){
+
+        try {
+            FileOutputStream out = new FileOutputStream("xs.data");
+            properties.store(out,"");
+            out.close();
+        } catch (Exception e) {
+            showContent("保存失败!"+e.toString());
+        }
+    }
+
+
+    public LeftPanel getLeft() {
+        return left;
+    }
+
+    public RightPanel getRight() {
+        return right;
+    }
+
+    public TopPanel getTop() {
+        return top;
     }
 }

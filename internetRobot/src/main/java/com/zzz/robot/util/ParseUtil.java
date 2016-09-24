@@ -32,12 +32,7 @@ public class ParseUtil {
      * @return
      */
    public static ZjParse getZjparse(String url){
-       for (Map.Entry<String, ZjParse> entry : map.entrySet()) {
-           if(url.contains(entry.getKey())){
-               return entry.getValue();
-           }
-       }
-        return null;
+        return new DocumentUtil();
    }
 
     /**
@@ -46,12 +41,7 @@ public class ParseUtil {
      * @return
      */
     public static ContentParse getContentparse(String url){
-        for (Map.Entry<String, ContentParse> entry : contentMap.entrySet()) {
-            if(url.contains(entry.getKey())){
-                return entry.getValue();
-            }
-        }
-        return null;
+        return new BqgContentParse();
     }
 
     public static List<Element> getZjList(String url) {

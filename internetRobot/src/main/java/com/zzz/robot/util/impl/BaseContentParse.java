@@ -16,7 +16,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * Created by dell_2 on 2016/8/25.
  */
 public abstract class BaseContentParse implements ContentParse {
-    public  int  LINE_LENGTH = 29;
+    public  int  LINE_LENGTH = 1000;
     private static int  TIME_OUT = 10000;
     private static Map<String,String> map = new ConcurrentHashMap<>();
 

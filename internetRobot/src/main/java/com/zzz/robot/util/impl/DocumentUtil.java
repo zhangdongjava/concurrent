@@ -52,9 +52,9 @@ public class DocumentUtil extends BaseParse {
     }
 
     private void bulida(){
-        as = doc.getElementsByTag("a");
+        as = doc.getElementById("list").getElementsByTag("a");
         list = as.parallelStream()
-                .filter((e) -> e.text().contains("章") && e.text().indexOf("第") == 0)
+                .filter((e) -> e.text().contains("章") && e.text().contains("第"))
                 .collect(Collectors.toList());
         list.parallelStream()
                 .filter((e)-> !e.attr("href").startsWith("http"))

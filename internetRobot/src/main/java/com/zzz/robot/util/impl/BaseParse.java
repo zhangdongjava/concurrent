@@ -11,7 +11,7 @@ import java.util.*;
  */
 public abstract class BaseParse implements ZjParse {
 
-    public void listDistinct(List<Element> elements){
+    public static void listDistinct(List<Element> elements){
         Set<String> set = new HashSet<>();
         Iterator<Element> it = elements.iterator();
         while(it.hasNext()){
@@ -27,13 +27,23 @@ public abstract class BaseParse implements ZjParse {
         Collections.sort(elements,new MyShor());
     }
 
-    private class MyShor implements  Comparator<Element>{
+    private static class MyShor implements  Comparator<Element>{
 
         @Override
         public int compare(Element o1, Element o2) {
             String text1 = o1.text();
+            int textIndex = text1.indexOf("第")+1;
             String text2 = o2.text();
-            int r = ToSz.toSz(text1.substring(1,text1.indexOf("章")))-ToSz.toSz(text2.substring(1,text2.indexOf("章")));
+            int text2Index = text1.indexOf("第")+1;
+            int r = 0;
+            try {
+                int i1 = Integer.valueOf(text1.substring(textIndex,text1.indexOf("章")));
+                int i2 = Integer.valueOf(text2.substring(text2Index,text2.indexOf("章")));
+                r = i1 - i2;
+            }catch (NumberFormatException e){
+                r= ToSz.toSz(text1.substring(textIndex,text1.indexOf("章")))-ToSz.toSz(text2.substring(text2Index,text2.indexOf("章")));
+            }
+
             return r;
         }
 

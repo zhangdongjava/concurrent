@@ -9,8 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Collections;
-import java.util.Vector;
+import java.util.*;
 
 /**
  * Created by dell_2 on 2016/8/25.
@@ -20,6 +19,7 @@ public class LeftPanel extends BasePanel {
     private JList jList;
     private  JScrollPane jScrollPane;
 
+
     private java.util.List<Element> as;
 
 
@@ -27,9 +27,11 @@ public class LeftPanel extends BasePanel {
 
     public LeftPanel(int x,int y,int w,int h,MainPanel mainPanel){
         super(x,y,w,h,mainPanel);
+        this.setLayout(null);
 
         zjgetUtil.LINE_LENGTH = 29;
         this.setBackground(Color.gray);
+
     }
 
     public void initList(String url){
@@ -76,7 +78,9 @@ public class LeftPanel extends BasePanel {
         mainPanel.showContent(content);
     }
 
-
+    public java.util.List<Element> getAs() {
+        return as;
+    }
 }
 
 
