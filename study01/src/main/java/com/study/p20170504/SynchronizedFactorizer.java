@@ -28,13 +28,14 @@ public class SynchronizedFactorizer implements Servlet {
 
     @Override
     public synchronized void service(ServletRequest req, ServletResponse res) throws ServletException, IOException {
-        Integer size = res.getBufferSize();
-        if (size.equals(lastNum.get())) {
+
+        Integer num = Integer.valueOf(req.getParameter("num"));
+        if (num.equals(lastNum.get())) {
             Object factors = lastFactors.get();
             //执行factors 省略代码
         } else {
-            Integer[] factors = factor(size);
-            lastNum.set(size);
+            Integer[] factors = factor(num);
+            lastNum.set(num);
             lastFactors.set(factors);
             //执行factors 省略代码 
         }
