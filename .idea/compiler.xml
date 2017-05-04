@@ -22,9 +22,13 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
-        <module name="internetRobot" />
-        <module name="javahttp" />
+        <module name="study01" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="internetRobot" target="1.5" />
+      <module name="javahttp" target="1.5" />
+      <module name="study01" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>
