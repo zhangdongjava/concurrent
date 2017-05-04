@@ -2,6 +2,7 @@ package com.study.p20170504;
 
 import javax.servlet.*;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
@@ -31,13 +32,13 @@ public class SynchronizedFactorizer implements Servlet {
 
         Integer num = Integer.valueOf(req.getParameter("num"));
         if (num.equals(lastNum.get())) {
-            Object factors = lastFactors.get();
-            //执行factors 省略代码
+            Integer[] factors = lastFactors.get();
+            res.getWriter().write(Arrays.toString(factors));
         } else {
             Integer[] factors = factor(num);
             lastNum.set(num);
             lastFactors.set(factors);
-            //执行factors 省略代码 
+            res.getWriter().write(Arrays.toString(factors));
         }
     }
 
