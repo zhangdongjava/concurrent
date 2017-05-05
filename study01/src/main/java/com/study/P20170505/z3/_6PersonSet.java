@@ -6,6 +6,7 @@ import java.util.Set;
 /**
  * 4.2章实例封闭
  * Created by zd on 2017/5/5.
+ * 线程安全 例子 {@link java.util.Collections.SynchronizedList}
  */
 public class _6PersonSet {
 
