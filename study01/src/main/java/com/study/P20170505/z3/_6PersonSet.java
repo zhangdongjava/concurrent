@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * 实例封闭
+ * 4.2章实例封闭
  * Created by zd on 2017/5/5.
  */
 public class _6PersonSet {
