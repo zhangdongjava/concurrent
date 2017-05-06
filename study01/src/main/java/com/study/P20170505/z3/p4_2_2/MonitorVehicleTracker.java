@@ -1,4 +1,4 @@
-package com.study.P20170505.z3.p4_4_2;
+package com.study.P20170505.z3.p4_2_2;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -38,7 +38,7 @@ public class MonitorVehicleTracker {
     private static Map<String, VehicleTracker> deepCopy(Map<String, VehicleTracker> locations) {
         Map<String, VehicleTracker> copy = new HashMap<>();
         for (Map.Entry<String, VehicleTracker> entry : locations.entrySet()) {
-            copy.put(entry.getKey(), entry.getValue());
+            copy.put(entry.getKey(), new VehicleTracker(entry.getValue()));
         }
         //不可修改的map
         return Collections.unmodifiableMap(copy);

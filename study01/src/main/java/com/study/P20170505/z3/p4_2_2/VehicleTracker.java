@@ -1,4 +1,4 @@
-package com.study.P20170505.z3.p4_4_2;
+package com.study.P20170505.z3.p4_2_2;
 
 import java.awt.*;
 
@@ -14,7 +14,7 @@ public class VehicleTracker {
 
     public VehicleTracker(VehicleTracker tracker) {
         this.name = tracker.name;
-        this.point = tracker.point;
+        this.point = new Point(tracker.point);
     }
 
     public Point getPoint() {
