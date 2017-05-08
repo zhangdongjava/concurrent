@@ -1,6 +1,7 @@
 package com.study.p20170506.z5;
 
 import java.util.Map;
+import java.util.concurrent.CancellationException;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
@@ -34,7 +35,7 @@ public class CachaeDemo4 {
         }
 
         @Override
-        public V compute(A arg) throws ExecutionException, InterruptedException {
+        public V compute(A arg) throws InterruptedException {
             FutureTask<V> futureTask = cache.get(arg);
             if (futureTask == null) {
                 futureTask = new FutureTask(() -> c.compute(arg));
@@ -45,7 +46,15 @@ public class CachaeDemo4 {
                     futureTask.run();
                 }
             }
-            return futureTask.get();
+            try {
+                return futureTask.get();
+                //取消执行要移除缓存
+            } catch (CancellationException e) {
+                cache.remove(arg);
+                throw new RuntimeException(e);
+            } catch (ExecutionException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 }
