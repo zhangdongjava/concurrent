@@ -1,6 +1,7 @@
 package com.study.p20170506.z4;
 
 import java.util.Vector;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by zd on 2017/5/6.
@@ -20,4 +21,5 @@ public class _1BetterVector<E> extends Vector<E> {
         }
         return f;
     }
+
 }
