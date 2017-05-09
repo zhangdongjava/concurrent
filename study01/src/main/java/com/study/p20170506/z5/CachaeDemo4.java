@@ -1,10 +1,7 @@
 package com.study.p20170506.z5;
 
 import java.util.Map;
-import java.util.concurrent.CancellationException;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.FutureTask;
+import java.util.concurrent.*;
 
 /**
  * Created by zd on 2017/5/8.
@@ -15,16 +12,21 @@ public class CachaeDemo4 {
         V compute(A arg) throws ExecutionException, InterruptedException;
     }
 
-    public class ExpensiveFunction implements Computable<String, Integer> {
+    public static class ExpensiveFunction implements Computable<String, Integer> {
 
         @Override
         public Integer compute(String arg) {
             //经过了大量计算
+            try {
+                TimeUnit.SECONDS.sleep(3);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             return Integer.valueOf(arg);
         }
     }
 
-    public class Memoizerl<A, V> implements Computable<A, V> {
+    public static class Memoizerl<A, V> implements Computable<A, V> {
 
         private final Map<A, FutureTask<V>> cache = new ConcurrentHashMap<>();
 
@@ -56,5 +58,16 @@ public class CachaeDemo4 {
                 throw new RuntimeException(e);
             }
         }
+
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+        Memoizerl memoizerl =   new Memoizerl<>(new ExpensiveFunction());
+        System.out.println(memoizerl.compute("233"));
+        System.out.println(memoizerl.compute("233"));
+        System.out.println(memoizerl.compute("233"));
+        System.out.println(memoizerl.compute("232"));
+        System.out.println(memoizerl.compute("233"));
+        System.out.println(memoizerl.compute("232"));
     }
 }

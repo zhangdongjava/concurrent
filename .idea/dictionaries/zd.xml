@@ -2,6 +2,7 @@
   <dictionary name="zd">
     <words>
       <w>factorizer</w>
+      <w>memoizerl</w>
     </words>
   </dictionary>
 </component>
