@@ -2,45 +2,45 @@ package com.study.p20170509.z6;
 
 import com.sun.scenario.effect.ImageData;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.*;
 
 /**
- * 页面渲染还不够好(下载一张图片显示一张更好)
+ * 页面渲染
  * Created by zd on 2017/5/9.
  */
-public class PageRenderDemo1 {
+public class PageRenderDemo2 {
 
     private static final ExecutorService executorService = Executors.newFixedThreadPool(2);
 
     public void renderPage(String source) {
         final List<String> imageInfos = scanForImageInfo(source);
-        Callable<List<ImageData>> task = () -> {
-            List<ImageData> imageDatas = new LinkedList<>();
-            for (String imageInfo : imageInfos) {
+        CompletionService<ImageData> completionService =
+                new ExecutorCompletionService<>(executorService);
+        for (String imageInfo : imageInfos) {
+            Callable<ImageData> task = () -> {
                 ImageData imageData = downLoadImage(imageInfo);
-                imageDatas.add(imageData);
-            }
-            return imageDatas;
-        };
-        Future<List<ImageData>> future = executorService.submit(task);
+                return imageData;
+            };
+            completionService.submit(task);
+        }
         renderText(source);
         try {
-            List<ImageData> imageDatas =  future.get();
-            for (ImageData imageData : imageDatas) {
-                renderImage(imageData);
+            for (int i = 0; i < imageInfos.size(); i++) {
+                //获取下载完成了的图片
+                Future<ImageData> future = completionService.take();
+                renderImage(future.get());
             }
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
-            future.cancel(true);
         } catch (ExecutionException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e.getCause());
         }
     }
 
     /**
      * 渲染图片未实现
+     *
      * @param imageData
      */
     private void renderImage(ImageData imageData) {
@@ -78,7 +78,7 @@ public class PageRenderDemo1 {
     }
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
-        Runnable r = ()->{
+        Runnable r = () -> {
             try {
                 TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException e) {
