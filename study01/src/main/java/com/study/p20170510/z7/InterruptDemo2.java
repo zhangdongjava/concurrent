@@ -22,6 +22,9 @@ public class InterruptDemo2 {
             System.out.println("超时了 !");
         } finally {
             System.out.println("取消任务!");
+//            if(runnable instanceof ReaderThread){
+//                ((ReaderThread)runnable).interrupt();
+//            }
             f.cancel(true);
         }
     }
