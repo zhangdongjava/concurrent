@@ -6,7 +6,7 @@ import java.util.concurrent.*;
 /**
  * Created by zd on 2017/5/8.
  */
-public class CachaeDemo4 {
+public class CacheDemo4 {
 
     public interface Computable<A, V> {
         V compute(A arg) throws ExecutionException, InterruptedException;
